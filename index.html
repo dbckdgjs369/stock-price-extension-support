@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support — Stock Price Widget</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        background: #0d1117;
+        color: #e6edf3;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* ── Layout ─────────────────────────────────── */
+      .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* ── Header ─────────────────────────────────── */
+      .header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .header .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .header .logo img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #e6edf3;
+      }
+
+      .header p {
+        margin-top: 8px;
+        color: #8b949e;
+        font-size: 15px;
+      }
+
+      /* ── Section ─────────────────────────────────── */
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #3b82f6;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 16px;
+      }
+
+      /* ── Card ─────────────────────────────────── */
+      .card {
+        background: #161b22;
+        border: 1px solid #21262d;
+        border-radius: 16px;
+        padding: 24px;
+      }
+
+      .card + .card {
+        margin-top: 12px;
+      }
+
+      /* ── How to use ─────────────────────────────── */
+      .step-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .step {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .step-num {
+        flex: 0 0 auto;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.15);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        color: #3b82f6;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .step-body h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e6edf3;
+        margin-bottom: 4px;
+      }
+
+      .step-body p {
+        font-size: 13px;
+        color: #8b949e;
+      }
+
+      .kbd {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 5px;
+        background: #21262d;
+        border: 1px solid #30363d;
+        font-size: 12px;
+        font-family: monospace;
+        color: #c9d1d9;
+        line-height: 1.5;
+      }
+
+      /* ── Plan comparison ─────────────────────────── */
+      .plan-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .plan-card {
+        background: #0d1117;
+        border: 1px solid #21262d;
+        border-radius: 12px;
+        padding: 18px;
+      }
+
+      .plan-card.pro {
+        border-color: rgba(245, 158, 11, 0.35);
+        background: rgba(245, 158, 11, 0.04);
+      }
+
+      .plan-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: #8b949e;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 12px;
+      }
+
+      .plan-card.pro .plan-name {
+        background: linear-gradient(135deg, #f59e0b, #ef4444);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .feature-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .feature-list li {
+        font-size: 13px;
+        color: #c9d1d9;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .feature-list li::before {
+        content: "✓";
+        flex: 0 0 auto;
+        font-size: 12px;
+        color: #3b82f6;
+        font-weight: 700;
+      }
+
+      .plan-card.pro .feature-list li::before {
+        color: #f59e0b;
+      }
+
+      /* ── FAQ ─────────────────────────────────────── */
+      .faq-item {
+        border-bottom: 1px solid #21262d;
+        padding: 18px 0;
+      }
+
+      .faq-item:first-child {
+        padding-top: 0;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .faq-q {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e6edf3;
+        margin-bottom: 8px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .faq-q::before {
+        content: "Q";
+        flex: 0 0 auto;
+        font-size: 11px;
+        font-weight: 800;
+        color: #3b82f6;
+        background: rgba(59, 130, 246, 0.12);
+        border-radius: 5px;
+        padding: 2px 5px;
+        margin-top: 1px;
+        letter-spacing: 0.04em;
+      }
+
+      .faq-a {
+        font-size: 13px;
+        color: #8b949e;
+        padding-left: 32px;
+        line-height: 1.7;
+      }
+
+      /* ── Contact ─────────────────────────────────── */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .contact-card {
+        background: #0d1117;
+        border: 1px solid #21262d;
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        text-decoration: none;
+        transition: border-color 0.15s, background 0.15s;
+      }
+
+      .contact-card:hover {
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.04);
+        text-decoration: none;
+      }
+
+      .contact-icon {
+        flex: 0 0 auto;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: #161b22;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+
+      .contact-body h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e6edf3;
+        margin-bottom: 4px;
+      }
+
+      .contact-body p {
+        font-size: 12px;
+        color: #8b949e;
+      }
+
+      /* ── Footer ─────────────────────────────────── */
+      .footer {
+        text-align: center;
+        margin-top: 56px;
+        padding-top: 24px;
+        border-top: 1px solid #21262d;
+        color: #484f58;
+        font-size: 12px;
+      }
+
+      @media (max-width: 520px) {
+        .plan-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .header h1 {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="icons/icon-128.png" alt="Stock Price Widget" />
+          <span style="font-size:20px;font-weight:700;">Stock Price Widget</span>
+        </div>
+        <p>사용 가이드 및 자주 묻는 질문</p>
+      </div>
+
+      <!-- How to use -->
+      <div class="section">
+        <div class="section-label">사용 방법</div>
+        <div class="card">
+          <div class="step-list">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h3>종목 검색</h3>
+                <p>팝업에서 <strong>주식</strong> 또는 <strong>코인</strong> 모드를 선택하고 종목명이나 티커를 입력한 뒤 검색합니다.<br>예: 삼성전자, AAPL, TSLA, BTC</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h3>위젯 생성</h3>
+                <p>검색 결과에서 원하는 종목을 선택하고 <strong>생성</strong>을 누르면, 현재 보고 있는 페이지 위에 시세 위젯이 바로 나타납니다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h3>위젯 이동 / 크기 조절</h3>
+                <p><kbd class="kbd">Shift</kbd> + <strong>드래그</strong>로 위젯을 원하는 위치로 이동합니다.<br>위젯 우하단 핸들을 <kbd class="kbd">Shift</kbd> + <strong>드래그</strong>하면 크기를 조절할 수 있습니다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <h3>차트 보기</h3>
+                <p>위젯을 우클릭하면 컨텍스트 메뉴가 나타납니다. <strong>차트 보기</strong>를 선택하면 인터랙티브 캔들 차트를 확인할 수 있습니다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <h3>위젯 관리</h3>
+                <p>팝업의 <strong>현재 위젯</strong> 목록에서 개별 위젯을 숨기거나 삭제할 수 있습니다. 여러 개를 선택해 한 번에 삭제하는 것도 가능합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan comparison -->
+      <div class="section">
+        <div class="section-label">요금제 비교</div>
+        <div class="plan-grid">
+          <div class="plan-card">
+            <div class="plan-name">Free</div>
+            <ul class="feature-list">
+              <li>위젯 최대 3개</li>
+              <li>주식 실시간 시세</li>
+              <li>코인 실시간 시세</li>
+              <li>최소화 모드</li>
+              <li>위젯 이동 / 크기 조절</li>
+            </ul>
+          </div>
+          <div class="plan-card pro">
+            <div class="plan-name">Pro</div>
+            <ul class="feature-list">
+              <li>위젯 무제한</li>
+              <li>주식 실시간 시세</li>
+              <li>코인 실시간 시세</li>
+              <li>최소화 모드</li>
+              <li>위젯 이동 / 크기 조절</li>
+              <li>인터랙티브 캔들 차트</li>
+              <li>다크 테마 위젯</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section">
+        <div class="section-label">자주 묻는 질문</div>
+        <div class="card">
+          <div class="faq-item">
+            <div class="faq-q">위젯이 페이지에 보이지 않아요.</div>
+            <div class="faq-a">
+              일부 페이지(크롬 내부 페이지, PDF 뷰어, 크롬 웹 스토어 등)에서는 확장 프로그램이 동작하지 않습니다. 일반 웹사이트에서 사용해 주세요. 문제가 지속되면 확장 프로그램을 재설치해 보세요.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">시세가 업데이트되지 않는 것 같아요.</div>
+            <div class="faq-a">
+              시세는 약 10초 간격으로 자동 갱신됩니다. 서버 상태에 따라 일시적으로 지연될 수 있습니다. 페이지를 새로고침해도 해결되지 않으면 잠시 후 다시 시도해 주세요.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><kbd class="kbd">Shift</kbd> + 드래그가 작동하지 않아요.</div>
+            <div class="faq-a">
+              일부 사이트에서는 자체 단축키나 이벤트 처리 때문에 충돌이 발생할 수 있습니다. 위젯 위에서 정확히 <kbd class="kbd">Shift</kbd>를 먼저 누른 상태에서 드래그를 시작해 보세요.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">위젯 위치가 페이지를 이동하면 초기화돼요.</div>
+            <div class="faq-a">
+              위젯의 위치와 크기는 현재 탭 기준으로 저장됩니다. 페이지 이동 시 위젯이 재생성되며, 이는 정상 동작입니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">원하는 종목이 검색되지 않아요.</div>
+            <div class="faq-a">
+              국내 주식은 종목명 또는 종목 코드(6자리 숫자), 해외 주식은 티커 심볼(예: AAPL, TSLA)로 검색해 보세요. 코인은 심볼(예: BTC, ETH)로 검색하면 됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="section">
+        <div class="section-label">문의 / 피드백</div>
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:dbckdgjs369@gmail.com">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-body">
+              <h3>이메일 문의</h3>
+              <p>버그 신고, 기능 제안, Pro 라이선스 문의</p>
+            </div>
+          </a>
+          <a class="contact-card" href="https://github.com/yoochangheon/stock-price-extension/issues" target="_blank" rel="noopener">
+            <div class="contact-icon">🐛</div>
+            <div class="contact-body">
+              <h3>GitHub Issues</h3>
+              <p>버그 리포트 및 기능 요청</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Stock Price Widget &nbsp;·&nbsp; version 3.1.0</p>
+        <p style="margin-top:6px;">시세 데이터는 정보 제공 목적으로만 사용되며, 투자 판단의 근거로 활용하지 마세요.</p>
+      </div>
+
+    </div>
+  </body>
+</html>
