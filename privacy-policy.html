@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Price Widget Privacy Policy</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fb;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #5b6474;
+        --border: #d8deea;
+        --accent: #0f766e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 860px;
+        margin: 48px auto;
+        padding: 0 20px;
+      }
+
+      article {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+      }
+
+      h1,
+      h2 {
+        margin: 0 0 16px;
+        line-height: 1.25;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        margin-top: 28px;
+        font-size: 20px;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+
+      .meta {
+        margin-bottom: 24px;
+        color: var(--accent);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1>Stock Price Widget Privacy Policy</h1>
+        <p class="meta">Last updated: 2026-03-18</p>
+
+        <p>
+          Stock Price Widget provides stock and cryptocurrency quote widgets on webpages selected by
+          the user.
+        </p>
+
+        <h2>Overview</h2>
+        <p>
+          The extension allows users to search symbols, create widgets, and display real-time price
+          updates on webpages. To provide this functionality, the extension runs on user-opened
+          webpages, stores widget layout locally in the browser, and connects to a
+          developer-operated quote server for search and quote delivery.
+        </p>
+
+        <h2>Data We Handle</h2>
+        <ul>
+          <li>Widget configuration chosen by the user, such as symbol, display name, position, width, scale, and minimal mode preference</li>
+          <li>Quote lookup requests and realtime quote subscription data sent to the quote server</li>
+          <li>Basic technical request and connection logs used to operate, secure, and debug the service</li>
+          <li>Limited page context required to render widgets on the current webpage selected by the user</li>
+        </ul>
+
+        <h2>How We Use Data</h2>
+        <ul>
+          <li>Search supported stock and cryptocurrency symbols</li>
+          <li>Stream realtime quote data to the extension</li>
+          <li>Save widget layout and user preferences locally in the browser</li>
+          <li>Prevent abuse, apply rate limits, and diagnose service issues</li>
+        </ul>
+
+        <h2>Data Storage</h2>
+        <ul>
+          <li>Widget layout and user preferences are stored locally in Chrome storage on the user's device</li>
+          <li>Quote data may be cached temporarily by the extension and quote server to deliver current prices efficiently</li>
+          <li>Server logs may temporarily contain technical metadata such as IP address, request timing, and rate-limit events</li>
+        </ul>
+
+        <h2>Data Sharing</h2>
+        <p>We share data only with services necessary to operate the extension:</p>
+        <ul>
+          <li>Korea Investment & Securities Open API for domestic stock quotes</li>
+          <li>Gate.io public market data APIs for cryptocurrency quotes</li>
+          <li>Hosting and infrastructure providers used to run the quote server</li>
+        </ul>
+        <p>We do not sell user data. We do not share user data for advertising or marketing purposes.</p>
+
+        <h2>Advertising and Profiling</h2>
+        <ul>
+          <li>We do not use user data for personalized advertising</li>
+          <li>We do not sell browsing activity</li>
+          <li>We do not use webpage data for unrelated analytics, profiling, or marketing</li>
+        </ul>
+
+        <h2>Security</h2>
+        <ul>
+          <li>Production traffic between the extension and the quote server is intended to use HTTPS/WSS</li>
+          <li>We use service protections such as rate limiting and operational monitoring to reduce abuse</li>
+        </ul>
+
+        <h2>User Control</h2>
+        <p>
+          Users can remove widgets, clear extension data stored in the browser, or uninstall the
+          extension at any time. Uninstalling the extension stops further extension-side data
+          handling in the browser.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Support contact URL and publisher contact information should be added before publication.
+        </p>
+      </article>
+    </main>
+  </body>
+</html>
