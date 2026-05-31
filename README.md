@@ -2,8 +2,6 @@
 
 > Float live stock & crypto prices on any webpage — without switching tabs.
 
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/niofpnhhdeaneajeemfpnclammlkhfg?label=Chrome%20Web%20Store&logo=googlechrome)](https://chromewebstore.google.com/detail/stock-price-widget/niofpnhhdeaneajeemfpnclammlkhfg)
-[![Users](https://img.shields.io/chrome-web-store/users/niofpnhhdeaneajeemfpnclammlkhfg)](https://chromewebstore.google.com/detail/stock-price-widget/niofpnhhdeaneajeemfpnclammlkhfg)
 
 ---
 
